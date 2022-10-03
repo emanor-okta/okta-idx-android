@@ -16,11 +16,33 @@
 package com.okta.idx.android
 
 import android.app.Application
+import com.okta.authfoundation.AuthFoundationDefaults
+import com.okta.authfoundation.client.OidcClient
+import com.okta.authfoundation.client.OidcConfiguration
+import com.okta.authfoundation.client.SharedPreferencesCache
+import com.okta.authfoundation.credential.CredentialDataSource.Companion.createCredentialDataSource
+import com.okta.authfoundationbootstrap.CredentialBootstrap
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import timber.log.Timber
 
 class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
+        // Add AuthFoundation for Token storage/refresh capability
+        val context = applicationContext
+        AuthFoundationDefaults.cache = SharedPreferencesCache.create(context)
+        val oidcConfiguration = OidcConfiguration(
+            clientId = BuildConfig.CLIENT_ID,
+            defaultScope = "openid email profile offline_access",
+        )
+        val oidcClient = OidcClient.createFromDiscoveryUrl(
+            oidcConfiguration,
+            "${BuildConfig.ISSUER}/.well-known/openid-configuration".toHttpUrl(),
+        )
+        CredentialBootstrap.initialize(oidcClient.createCredentialDataSource(context))
+        // End Add AuthFoundation
+
 
         Timber.plant(Timber.DebugTree())
     }

@@ -89,6 +89,7 @@ dependencies {
     implementation deps.junit // Mock Web Server depends on junit :(
     implementation deps.timber
     implementation deps.okta.idx
+    implementation deps.okta.auth_foundation_bootstrap
 
     implementation deps.jackson_databind
 

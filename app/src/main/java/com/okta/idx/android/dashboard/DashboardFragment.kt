@@ -33,19 +33,22 @@ internal class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
     private val viewModel: DashboardViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.tokenType.text = TokenViewModel.tokenResponse.tokenType
-        binding.expiresIn.text = TokenViewModel.tokenResponse.expiresIn.toString()
-        binding.accessToken.text = TokenViewModel.tokenResponse.accessToken
-        binding.refreshToken.text = TokenViewModel.tokenResponse.refreshToken
-        binding.idToken.text = TokenViewModel.tokenResponse.idToken
-        binding.scope.text = TokenViewModel.tokenResponse.scope
+        setBindings()
 
         binding.signOutButton.setOnClickListener {
             viewModel.logout()
         }
 
+        binding.userInfoButton.setOnClickListener {
+            viewModel.userInfo()
+        }
+
         viewModel.userInfoLiveData.observe(viewLifecycleOwner) { userInfo ->
             binding.claimsTitle.visibility = if (userInfo.isEmpty()) View.GONE else View.VISIBLE
+            //test AuthFoundation
+            binding.claimsLinearLayout.removeAllViews()
+            setBindings()
+            //end
             for (entry in userInfo) {
                 val nestedBinding = binding.linearLayout.inflateBinding(RowDashboardClaimBinding::inflate)
                 nestedBinding.textViewKey.text = entry.key
@@ -73,5 +76,14 @@ internal class DashboardFragment : BaseFragment<FragmentDashboardBinding>(
                 }
             }
         }
+    }
+
+    private fun setBindings() {
+        binding.tokenType.text = TokenViewModel.tokenResponse.tokenType
+        binding.expiresIn.text = TokenViewModel.tokenResponse.expiresIn.toString()
+        binding.accessToken.text = TokenViewModel.tokenResponse.accessToken
+        binding.refreshToken.text = TokenViewModel.tokenResponse.refreshToken
+        binding.idToken.text = TokenViewModel.tokenResponse.idToken
+        binding.scope.text = TokenViewModel.tokenResponse.scope
     }
 }

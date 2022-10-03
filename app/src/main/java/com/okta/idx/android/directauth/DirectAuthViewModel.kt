@@ -73,19 +73,19 @@ internal class DirectAuthViewModel : ViewModel() {
             }
             val interactionCodeQueryParameter = uri.getQueryParameter("interaction_code")
             if (interactionCodeQueryParameter != null) {
-                formAction.proceed {
+//                formAction.proceed {
                     // Validate the state matches. This is a security assurance.
-                    if (proceedContext?.clientContext?.state != stateQueryParameter) {
-                        val error = "IDP redirect failed due to state mismatch."
-                        return@proceed FormAction.ProceedTransition.ErrorTransition(listOf(error))
-                    }
-                    val response = authenticationWrapper.fetchTokenWithInteractionCode(
-                        Network.baseUrl,
-                        proceedContext,
-                        interactionCodeQueryParameter
-                    )
-                    handleKnownTransitions(response)
-                }
+//                    if (proceedContext?.clientContext?.state != stateQueryParameter) {
+//                        val error = "IDP redirect failed due to state mismatch."
+//                        return@proceed FormAction.ProceedTransition.ErrorTransition(listOf(error))
+//                    }
+//                    val response = authenticationWrapper.fetchTokenWithInteractionCode(
+//                        Network.baseUrl,
+//                        proceedContext,
+//                        interactionCodeQueryParameter
+//                    )
+//                    handleKnownTransitions(response)
+//                }
             }
         }
     }

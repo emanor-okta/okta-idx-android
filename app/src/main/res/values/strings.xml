@@ -6,6 +6,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="sign_out">Sign Out</string>
+    <string name="user_info">User Info</string>
     <string name="token_type">Token Type:</string>
     <string name="expires_in">Expires In:</string>
     <string name="access_token">Access Token:</string>

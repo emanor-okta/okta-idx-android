@@ -22,6 +22,7 @@ import com.okta.idx.android.directauth.sdk.FormAction
 import com.okta.idx.android.directauth.sdk.util.emitValidation
 import com.okta.idx.sdk.api.model.AuthenticationOptions
 import com.okta.idx.sdk.api.model.Idp
+import com.okta.idx.sdk.api.model.RequestContext
 
 class UsernamePasswordForm internal constructor(
     val viewModel: ViewModel = ViewModel(),
